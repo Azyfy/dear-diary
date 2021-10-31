@@ -45,6 +45,11 @@ app.get("/crete-table", (req, res) => {
     res.send("Table created")
 })
 
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: "Unknown Endpoint" })
+  }
+
+app.use(unknownEndpoint)
 
 const PORT = 3000
 server.listen(PORT, () =>  {
