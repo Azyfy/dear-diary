@@ -29,6 +29,22 @@ app.get("/", (req, res) =>  {
     res.send("Welcome")
 })
 
+app.get("/crete-table", (req, res) => {
+
+    const sql = `CREATE TABLE Users (
+        userID int NOT NULL AUTO_INCREMENT, 
+        username varchar(255) NOT NULL, 
+        password varchar(255) NOT NULL,
+        PRIMARY KEY(userID)
+        );`
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Table created", result);
+    })
+
+    res.send("Table created")
+})
+
 
 const PORT = 3000
 server.listen(PORT, () =>  {
