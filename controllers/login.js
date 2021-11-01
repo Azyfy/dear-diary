@@ -3,42 +3,54 @@ const jwt = require("jsonwebtoken")
 const loginRouter = require("express").Router()
 const db = require("../config/config")
 
-loginRouter.post("/", async (req, res) => {
-    console.log("LOGIN", req.body)
-    const { username, password } = req.body
+const { body, validationResult } = require("express-validator")
 
-    const sql = 'SELECT userID, username, password FROM Users WHERE username = ?'
+loginRouter.post("/",
 
-    db.query(sql, [username], async (err, result) => {
-        if (err) throw err
+    body("username").trim().isLength({min: 3}).escape(),
+    body("password").trim().isLength({min: 3}).escape(),
 
-        console.log("RES", result)
-        const user = result[0]
+    async (req, res) => {
+        console.log("LOGIN", req.body)
+        const { username, password } = req.body
 
-        if(!user) {
-            res.status(401).json({ message: "Username or password incorrect" })
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
         }
-        else if (user.username === username) {
 
-            const correctPassword = await bcrypt.compare(password, user.password)
-            
-            if(correctPassword) {
+        const sql = 'SELECT userID, username, password FROM Users WHERE username = ?'
 
-                const userForToken = {
-                    username: user.username,
-                    id: user.userID
-                }
+        db.query(sql, [username], async (err, result) => {
+            if (err) throw err
 
-                const token = jwt.sign(userForToken, process.env.JWT_SECRET, { expiresIn: "2h" })
+            console.log("RES", result)
+            const user = result[0]
 
-                res.status(200).json({ token, user: user.username })
-            }
-            else {
+            if(!user) {
                 res.status(401).json({ message: "Username or password incorrect" })
             }
-        }
+            else if (user.username === username) {
 
-    })
+                const correctPassword = await bcrypt.compare(password, user.password)
+                
+                if(correctPassword) {
+
+                    const userForToken = {
+                        username: user.username,
+                        id: user.userID
+                    }
+
+                    const token = jwt.sign(userForToken, process.env.JWT_SECRET, { expiresIn: "2h" })
+
+                    res.status(200).json({ token, user: user.username })
+                }
+                else {
+                    res.status(401).json({ message: "Username or password incorrect" })
+                }
+            }
+
+        })
 
 })
 

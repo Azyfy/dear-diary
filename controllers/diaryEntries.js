@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken")
 const diaryEntriesRouter = require("express").Router()
 const db = require("../config/config")
 
+const { body, validationResult } = require("express-validator")
 
 const getTokenFrom = req => {  
     const auth = req.get('Authorization')  
@@ -37,29 +38,40 @@ diaryEntriesRouter.get("/", async (req, res) =>  {
 })
 
 
-diaryEntriesRouter.post("/", async (req, res) =>  {
-    const {date, tags, text} = req.body
-    console.log("BODY", req.body)
-    const token = getTokenFrom(req)
+diaryEntriesRouter.post("/", 
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-        if(err) {
-            return res.status(401).json({message: err})
+    body("date", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({format: "YYYY-MM-DD"}),
+    body("text", "More text required").trim().isLength({min: 1}).escape(),
+    
+    async (req, res) =>  {
+        const {date, tags, text} = req.body
+
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
         }
-        console.log("TOKEN", decodedToken)
 
-        const user = decodedToken
-        const sql = 'INSERT INTO Diary_Entries (userID, date, tags, text) VALUES (?, ?, ?, ?);'
+        console.log("BODY", req.body)
+        const token = getTokenFrom(req)
 
-        db.query(sql, [user.id, date, tags, text ], (err, result) => {
-            if (err) throw err
-    
-            console.log("Entry created", result);
-    
-            return res.json({message: "Entry posted"})
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+            if(err) {
+                return res.status(401).json({message: err})
+            }
+            console.log("TOKEN", decodedToken)
+
+            const user = decodedToken
+            const sql = 'INSERT INTO Diary_Entries (userID, date, tags, text) VALUES (?, ?, ?, ?);'
+
+            db.query(sql, [user.id, date, tags, text ], (err, result) => {
+                if (err) throw err
+        
+                console.log("Entry created", result);
+        
+                return res.json({message: "Entry posted"})
+            })
+
         })
-
-    })
 
 
 })
