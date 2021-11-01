@@ -10,6 +10,7 @@ const cors = require("cors")
 
 const usersRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
+const diaryEntriesRouter = require("./controllers/diaryEntries")
 
 app.use(cors())
 
@@ -25,7 +26,7 @@ app.get("/", (req, res) =>  {
     res.send("Welcome")
 })
 
-app.get("/create-table", (req, res) => {
+app.get("/create-table-users", (req, res) => {
 
     const sql = `CREATE TABLE Users (
         userID int NOT NULL AUTO_INCREMENT, 
@@ -38,11 +39,31 @@ app.get("/create-table", (req, res) => {
         console.log("Table created", result);
     })
 
-    res.send("Table created")
+    res.send("Table users created")
+})
+
+app.get("/create-table-entries", (req, res) => {
+
+    const sql = `CREATE TABLE Diary_Entries (
+        entryID int NOT NULL AUTO_INCREMENT,
+        userID int NOT NULL, 
+        date DATE NOT NULL, 
+        tags varchar(255),
+        text TEXT NOT NULL,
+        PRIMARY KEY(entryID),
+        FOREIGN KEY (userID) REFERENCES Users(userID)
+        );`
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Table Diary Entries created", result);
+    })
+
+    res.send("Table entries created")
 })
 
 app.use("/users", usersRouter)
 app.use("/login", loginRouter)
+app.use("/diary-entries", diaryEntriesRouter)
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: "Unknown Endpoint" })

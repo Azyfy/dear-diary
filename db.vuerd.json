@@ -3,8 +3,8 @@
     "version": "2.2.6",
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
-    "scrollLeft": -4,
+    "scrollTop": -73,
+    "scrollLeft": -17.333333333333336,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -140,7 +140,7 @@
               "autoIncrement": true,
               "primaryKey": true,
               "unique": false,
-              "notNull": false
+              "notNull": true
             },
             "ui": {
               "active": false,
@@ -157,7 +157,7 @@
           {
             "name": "date",
             "comment": "",
-            "dataType": "",
+            "dataType": "DATE",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -180,7 +180,7 @@
           {
             "name": "tags",
             "comment": "",
-            "dataType": "",
+            "dataType": "VARCHAR",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -195,7 +195,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 64.6005859375,
               "widthDefault": 60
             },
             "id": "f740147b-64fd-4798-b97b-59773d3b0c3d"
@@ -203,7 +203,7 @@
           {
             "name": "text",
             "comment": "",
-            "dataType": "",
+            "dataType": "TEXT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -224,7 +224,7 @@
             "id": "462378b2-a13a-4c4e-88c5-5a1d8e29e452"
           },
           {
-            "name": "id",
+            "name": "userID",
             "comment": "",
             "dataType": "INT",
             "default": "",
@@ -248,10 +248,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 66,
           "top": 240,
-          "zIndex": 10,
+          "zIndex": 32,
           "widthName": 60,
           "widthComment": 60,
           "color": "#00FFFF"
@@ -285,7 +285,7 @@
           "columnIds": [
             "8d5ae252-60be-4259-af02-1dfa931086a7"
           ],
-          "x": 239.5,
+          "x": 241.80029296875,
           "y": 240,
           "direction": "top"
         },
