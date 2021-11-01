@@ -119,7 +119,7 @@
           "active": false,
           "left": 16,
           "top": 10,
-          "zIndex": 122,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60,
           "color": "#FAFAFA"
@@ -137,10 +137,10 @@
             "dataType": "INT",
             "default": "",
             "option": {
-              "autoIncrement": false,
+              "autoIncrement": true,
               "primaryKey": true,
               "unique": false,
-              "notNull": true
+              "notNull": false
             },
             "ui": {
               "active": false,
@@ -152,7 +152,7 @@
               "widthDataType": 60,
               "widthDefault": 60
             },
-            "id": "599fdb5b-3e1c-4f9c-aaef-067c0aadefc3"
+            "id": "2ff9d3ba-df27-4995-8c71-9ab54c40b78f"
           },
           {
             "name": "date",
@@ -249,11 +249,12 @@
         ],
         "ui": {
           "active": true,
-          "left": 46,
-          "top": 243,
-          "zIndex": 136,
+          "left": 66,
+          "top": 240,
+          "zIndex": 10,
           "widthName": 60,
-          "widthComment": 60
+          "widthComment": 60,
+          "color": "#00FFFF"
         },
         "visible": true,
         "id": "7144c935-511f-4bbd-8e98-4a935ad5604b"
@@ -284,8 +285,8 @@
           "columnIds": [
             "8d5ae252-60be-4259-af02-1dfa931086a7"
           ],
-          "x": 219.5,
-          "y": 243,
+          "x": 239.5,
+          "y": 240,
           "direction": "top"
         },
         "constraintName": "fk_user_to_diary",

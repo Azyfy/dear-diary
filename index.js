@@ -9,6 +9,7 @@ const connection = require("./config/config")
 const cors = require("cors")
 
 const usersRouter = require("./controllers/users")
+const loginRouter = require("./controllers/login")
 
 app.use(cors())
 
@@ -41,6 +42,7 @@ app.get("/create-table", (req, res) => {
 })
 
 app.use("/users", usersRouter)
+app.use("/login", loginRouter)
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: "Unknown Endpoint" })
