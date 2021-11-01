@@ -4,20 +4,15 @@ const app = express()
 const http = require("http")
 const server = http.createServer(app)
 
-const mysql = require("mysql2")
-
-require('dotenv').config()
+const connection = require("./config/config")
 
 const cors = require("cors")
 
+const usersRouter = require("./controllers/users")
+
 app.use(cors())
 
-const connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+app.use(express.json())
 
 connection.connect( (err) => {
     if (err) throw err
@@ -29,7 +24,7 @@ app.get("/", (req, res) =>  {
     res.send("Welcome")
 })
 
-app.get("/crete-table", (req, res) => {
+app.get("/create-table", (req, res) => {
 
     const sql = `CREATE TABLE Users (
         userID int NOT NULL AUTO_INCREMENT, 
@@ -44,6 +39,8 @@ app.get("/crete-table", (req, res) => {
 
     res.send("Table created")
 })
+
+app.use("/users", usersRouter)
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: "Unknown Endpoint" })
