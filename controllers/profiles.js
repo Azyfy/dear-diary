@@ -66,11 +66,10 @@ profilesRouter.post("/",
         
                 return res.json({message: "Profile posted"})
             })
-
         })
-
-
 })
+
+
 
 
 

@@ -4,6 +4,9 @@ const db = require("../config/config")
 
 const { body, validationResult } = require("express-validator")
 
+const jwt = require("jsonwebtoken")
+const getTokenFrom = require("../utils/getTokenFrom")
+
 usersRouter.post("/",
 
     body("username", "Username needs to be at least 3char long").trim().isLength({min: 3}).escape(),
@@ -49,9 +52,30 @@ usersRouter.post("/",
 
                 }
             })
+})
 
-console.log("HOLA")
+usersRouter.delete("/:id", async (req, res) => {
 
+    const userID = req.params.id
+
+    const token = getTokenFrom(req)
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => { 
+        if(err) {
+            return res.status(401).json({message: err})
+        }
+
+        const sql = 'DELETE FROM Users WHERE userID = ? ;'
+
+        db.query(sql, [ userID ], (err, result) => {
+            if (err) throw err
+    
+            console.log("Uder deleted", result);
+    
+            return res.json({message: "User deleted"})
+        })
+
+    })
 })
 
 module.exports = usersRouter

@@ -68,4 +68,28 @@ diaryEntriesRouter.post("/",
 
 })
 
+diaryEntriesRouter.delete("/:id", async (req, res) => {
+
+    const entryID = req.params.id
+
+    const token = getTokenFrom(req)
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => { 
+        if(err) {
+            return res.status(401).json({message: err})
+        }
+
+        const sql = 'DELETE FROM Diary_Entries WHERE entryID = ? ;'
+
+        db.query(sql, [entryID ], (err, result) => {
+            if (err) throw err
+    
+            console.log("Entry deleted", result);
+    
+            return res.json({message: "Entry deleted"})
+        })
+
+    })
+})
+
 module.exports = diaryEntriesRouter
