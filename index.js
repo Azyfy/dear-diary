@@ -38,9 +38,9 @@ app.get("/create-table-users", (req, res) => {
     connection.query(sql, (err, result) => {
         if (err) return res.status(500).json( err )
         console.log("Table created", result)
-    })
 
-    res.send("Table users created")
+        res.send("Table users created")
+    })
 })
 
 app.get("/create-table-entries", (req, res) => {
@@ -56,9 +56,9 @@ app.get("/create-table-entries", (req, res) => {
     connection.query(sql, (err, result) => {
         if (err) return res.status(500).json( err )
         console.log("Table Diary Entries created", result)
-    })
 
-    res.send("Table entries created")
+        res.send("Table entries created")
+    })
 })
 
 app.get("/create-table-profiles", (req, res) => {
@@ -78,9 +78,9 @@ app.get("/create-table-profiles", (req, res) => {
     connection.query(sql, (err, result) => {
         if (err) return res.status(500).json( err )
         console.log("Table Profiles created", result)
-    })
 
-    res.send("Table Profiles created")
+        res.send("Table Profiles created")
+    })
 })
 
 app.use("/users", usersRouter)
