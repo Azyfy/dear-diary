@@ -51,7 +51,7 @@ app.get("/create-table-entries", (req, res) => {
         date DATE NOT NULL, 
         text TEXT NOT NULL,
         PRIMARY KEY(entryID),
-        FOREIGN KEY (userID) REFERENCES Users(userID)
+        FOREIGN KEY (userID) REFERENCES Users(userID)  ON DELETE CASCADE
         );`
     connection.query(sql, (err, result) => {
         if (err) throw err;
@@ -72,7 +72,7 @@ app.get("/create-table-profiles", (req, res) => {
         city varchar(255),
         birthday date,
         PRIMARY KEY(profileID),
-        FOREIGN KEY (userID) REFERENCES Users(userID),
+        FOREIGN KEY (userID) REFERENCES Users(userID)  ON DELETE CASCADE,
         UNIQUE (userID)
         );`
     connection.query(sql, (err, result) => {
