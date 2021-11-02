@@ -11,6 +11,7 @@ const cors = require("cors")
 const usersRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
 const diaryEntriesRouter = require("./controllers/diaryEntries")
+const profilesRouter = require("./controllers/profiles")
 
 app.use(cors())
 
@@ -60,9 +61,32 @@ app.get("/create-table-entries", (req, res) => {
     res.send("Table entries created")
 })
 
+app.get("/create-table-profiles", (req, res) => {
+
+    const sql = `CREATE TABLE Profiles (
+        profileID int NOT NULL AUTO_INCREMENT,
+        userID int NOT NULL, 
+        name varchar(255), 
+        surname varchar(255),
+        country varchar(255),
+        city varchar(255),
+        birthday date,
+        PRIMARY KEY(profileID),
+        FOREIGN KEY (userID) REFERENCES Users(userID),
+        UNIQUE (userID)
+        );`
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Table Profiles created", result);
+    })
+
+    res.send("Table Profiles created")
+})
+
 app.use("/users", usersRouter)
 app.use("/login", loginRouter)
 app.use("/diary-entries", diaryEntriesRouter)
+app.use("/profiles", profilesRouter)
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: "Unknown Endpoint" })
