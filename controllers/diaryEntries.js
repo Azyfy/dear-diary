@@ -11,7 +11,7 @@ diaryEntriesRouter.get("/", async (req, res) =>  {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if(err) {
-            return res.status(401).json({message: err})
+            return res.status(401).json({ message: err })
         }
 
         const user = decodedToken
@@ -19,53 +19,42 @@ diaryEntriesRouter.get("/", async (req, res) =>  {
 
         db.query(sql, [user.id ], (err, result) => {
             if (err) throw err
-    
-            console.log("Got Entry", result);
-    
+
             return res.status(200).json(result)
         })
-
     })
-
 })
 
 
-diaryEntriesRouter.post("/", 
+diaryEntriesRouter.post("/",
 
-    body("date", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({format: "YYYY-MM-DD"}),
-    body("text", "More text required").trim().isLength({min: 1}).escape(),
-    
+    body("date", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({ format: "YYYY-MM-DD" }),
+    body("text", "More text required").trim().isLength({ min: 1 }).escape(),
+
     async (req, res) =>  {
-        const {date, text} = req.body
+        const { date, text } = req.body
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
         }
 
-        console.log("BODY", req.body)
         const token = getTokenFrom(req)
 
         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
             if(err) {
-                return res.status(401).json({message: err})
+                return res.status(401).json({ message: err })
             }
-            console.log("TOKEN", decodedToken)
 
             const user = decodedToken
             const sql = 'INSERT INTO Diary_Entries (userID, date, text) VALUES (?, ?, ?);'
 
             db.query(sql, [user.id, date, text ], (err, result) => {
                 if (err) throw err
-        
-                console.log("Entry created", result);
-        
-                return res.json({message: "Entry posted"})
+
+                return res.json({ message: "Entry posted" })
             })
-
         })
-
-
 })
 
 diaryEntriesRouter.delete("/:id", async (req, res) => {
@@ -74,21 +63,18 @@ diaryEntriesRouter.delete("/:id", async (req, res) => {
 
     const token = getTokenFrom(req)
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => { 
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if(err) {
-            return res.status(401).json({message: err})
+            return res.status(401).json({ message: err })
         }
 
         const sql = 'DELETE FROM Diary_Entries WHERE entryID = ? ;'
 
         db.query(sql, [entryID ], (err, result) => {
             if (err) throw err
-    
-            console.log("Entry deleted", result);
-    
-            return res.json({message: "Entry deleted"})
-        })
 
+            return res.json({ message: "Entry deleted" })
+        })
     })
 })
 

@@ -36,8 +36,8 @@ app.get("/create-table-users", (req, res) => {
         PRIMARY KEY(userID)
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log("Table created", result);
+        if (err) throw err
+        console.log("Table created", result)
     })
 
     res.send("Table users created")
@@ -54,8 +54,8 @@ app.get("/create-table-entries", (req, res) => {
         FOREIGN KEY (userID) REFERENCES Users(userID)  ON DELETE CASCADE
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log("Table Diary Entries created", result);
+        if (err) throw err
+        console.log("Table Diary Entries created", result)
     })
 
     res.send("Table entries created")
@@ -76,8 +76,8 @@ app.get("/create-table-profiles", (req, res) => {
         UNIQUE (userID)
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log("Table Profiles created", result);
+        if (err) throw err
+        console.log("Table Profiles created", result)
     })
 
     res.send("Table Profiles created")

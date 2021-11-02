@@ -11,7 +11,7 @@ profilesRouter.get("/", async (req, res) =>  {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if(err) {
-            return res.status(401).json({message: err})
+            return res.status(401).json({ message: err })
         }
 
         const user = decodedToken
@@ -19,9 +19,7 @@ profilesRouter.get("/", async (req, res) =>  {
 
         db.query(sql, [user.id ], (err, result) => {
             if (err) throw err
-    
-            console.log("Got Profile", result);
-    
+
             return res.status(200).json(result)
         })
 
@@ -31,68 +29,63 @@ profilesRouter.get("/", async (req, res) =>  {
 
 
 
-profilesRouter.post("/", 
+profilesRouter.post("/",
 
-    body("name", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("surname", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("country", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("city", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("birthday", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({format: "YYYY-MM-DD"}).optional({ nullable: true }),
-    
+    body("name", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("surname", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("country", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("city", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("birthday", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({ format: "YYYY-MM-DD" }).optional({ nullable: true }),
+
     async (req, res) =>  {
-        const {name, surname, country, city, birthday} = req.body
+        const { name, surname, country, city, birthday } = req.body
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
         }
 
-        console.log("BODY", req.body)
         const token = getTokenFrom(req)
 
         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
             if(err) {
-                return res.status(401).json({message: err})
+                return res.status(401).json({ message: err })
             }
-            console.log("TOKEN", decodedToken)
 
             const user = decodedToken
             const sql = 'INSERT INTO Profiles (userID, name, surname, country, city, birthday) VALUES (?, ?, ?, ?, ?, ?);'
 
             db.query(sql, [user.id, name, surname, country, city, birthday  ], (err, result) => {
                 if (err) throw err
-        
-                console.log("Profile created", result);
-        
-                return res.json({message: "Profile posted"})
+
+                return res.json({ message: "Profile posted" })
             })
         })
 })
 
-profilesRouter.put("/:id", 
+profilesRouter.put("/:id",
 
-    body("name", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("surname", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("country", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("city", "Min length 3").trim().isLength({min: 3}).escape().optional({ nullable: true }),
-    body("birthday", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({format: "YYYY-MM-DD"}).optional({ nullable: true }),
-    
+    body("name", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("surname", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("country", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("city", "Min length 3").trim().isLength({ min: 3 }).escape().optional({ nullable: true }),
+    body("birthday", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({ format: "YYYY-MM-DD" }).optional({ nullable: true }),
+
     async (req, res) =>  {
-        const {name, surname, country, city, birthday} = req.body
+        const { name, surname, country, city, birthday } = req.body
 
         const profileID = req.params.id
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({ errors: errors.array() })
         }
 
-        console.log("BODY", req.body)
         const token = getTokenFrom(req)
 
         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
             if(err) {
-                return res.status(401).json({message: err})
+                return res.status(401).json({ message: err })
             }
             console.log("TOKEN", decodedToken)
 
@@ -100,16 +93,10 @@ profilesRouter.put("/:id",
 
             db.query(sql, [name, surname, country, city, birthday, profileID  ], (err, result) => {
                 if (err) throw err
-        
-                console.log("Profile updated", result);
-        
-                return res.json({message: "Profile updated"})
+
+                return res.json({ message: "Profile updated" })
             })
         })
 })
-
-
-
-
 
 module.exports = profilesRouter

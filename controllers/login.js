@@ -7,16 +7,16 @@ const { body, validationResult } = require("express-validator")
 
 loginRouter.post("/",
 
-    body("username").trim().isLength({min: 3}).escape(),
-    body("password").trim().isLength({min: 3}).escape(),
+    body("username").trim().isLength({ min: 3 }).escape(),
+    body("password").trim().isLength({ min: 3 }).escape(),
 
     async (req, res) => {
-        console.log("LOGIN", req.body)
+
         const { username, password } = req.body
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({ errors: errors.array() })
         }
 
         const sql = 'SELECT userID, username, password FROM Users WHERE username = ?'
@@ -24,7 +24,6 @@ loginRouter.post("/",
         db.query(sql, [username], async (err, result) => {
             if (err) throw err
 
-            console.log("RES", result)
             const user = result[0]
 
             if(!user) {
@@ -33,7 +32,7 @@ loginRouter.post("/",
             else if (user.username === username) {
 
                 const correctPassword = await bcrypt.compare(password, user.password)
-                
+
                 if(correctPassword) {
 
                     const userForToken = {
