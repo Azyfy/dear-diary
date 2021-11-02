@@ -4,14 +4,7 @@ const db = require("../config/config")
 
 const { body, validationResult } = require("express-validator")
 
-const getTokenFrom = req => {  
-    const auth = req.get('Authorization')  
-    if (auth && auth.toLowerCase().startsWith('bearer ')) {    
-        return auth.substring(7)
-    }  
-    
-    return null
-}
+const getTokenFrom = require("../utils/getTokenFrom")
 
 diaryEntriesRouter.get("/", async (req, res) =>  {
     const token = getTokenFrom(req)
@@ -60,7 +53,7 @@ diaryEntriesRouter.post("/",
             console.log("TOKEN", decodedToken)
 
             const user = decodedToken
-            const sql = 'INSERT INTO Diary_Entries (userID, date, text) VALUES (?, ?, ?, ?);'
+            const sql = 'INSERT INTO Diary_Entries (userID, date, text) VALUES (?, ?, ?);'
 
             db.query(sql, [user.id, date, text ], (err, result) => {
                 if (err) throw err
