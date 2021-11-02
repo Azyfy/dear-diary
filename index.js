@@ -48,7 +48,6 @@ app.get("/create-table-entries", (req, res) => {
         entryID int NOT NULL AUTO_INCREMENT,
         userID int NOT NULL, 
         date DATE NOT NULL, 
-        tags varchar(255),
         text TEXT NOT NULL,
         PRIMARY KEY(entryID),
         FOREIGN KEY (userID) REFERENCES Users(userID)

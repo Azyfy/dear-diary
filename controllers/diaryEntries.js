@@ -44,7 +44,7 @@ diaryEntriesRouter.post("/",
     body("text", "More text required").trim().isLength({min: 1}).escape(),
     
     async (req, res) =>  {
-        const {date, tags, text} = req.body
+        const {date, text} = req.body
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -61,9 +61,9 @@ diaryEntriesRouter.post("/",
             console.log("TOKEN", decodedToken)
 
             const user = decodedToken
-            const sql = 'INSERT INTO Diary_Entries (userID, date, tags, text) VALUES (?, ?, ?, ?);'
+            const sql = 'INSERT INTO Diary_Entries (userID, date, text) VALUES (?, ?, ?, ?);'
 
-            db.query(sql, [user.id, date, tags, text ], (err, result) => {
+            db.query(sql, [user.id, date, text ], (err, result) => {
                 if (err) throw err
         
                 console.log("Entry created", result);
