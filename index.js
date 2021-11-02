@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json())
 
 connection.connect( (err) => {
-    if (err) return res.status(500).json( err )
+    if (err) throw err
 
     console.log("Connected to database.")
 })
