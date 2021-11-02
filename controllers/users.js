@@ -29,7 +29,7 @@ usersRouter.post("/",
 
 
             db.query(sqlGetUser, [username], (err, result) => {
-                if (err) throw err
+                if (err) return res.status(500).json( err )
 
                 const userCount = result[0]["count(*)"]
 
@@ -39,7 +39,7 @@ usersRouter.post("/",
                 else {
 
                     db.query(sqlInsertUser, [username, passwordHash], (err, result) => {
-                        if (err) throw err
+                        if (err) return res.status(500).json( err )
 
                         return res.json({ message: "User created" })
                     })
@@ -62,7 +62,7 @@ usersRouter.delete("/:id", async (req, res) => {
         const sql = 'DELETE FROM Users WHERE userID = ? ;'
 
         db.query(sql, [ userID ], (err, result) => {
-            if (err) throw err
+            if (err) return res.status(500).json( err )
 
             return res.json({ message: "User deleted" })
         })

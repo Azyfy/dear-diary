@@ -18,7 +18,7 @@ diaryEntriesRouter.get("/", async (req, res) =>  {
         const sql = 'SELECT * FROM Diary_Entries WHERE userID = ? ;'
 
         db.query(sql, [user.id ], (err, result) => {
-            if (err) throw err
+            if (err) return res.status(500).json( err )
 
             return res.status(200).json(result)
         })
@@ -50,7 +50,7 @@ diaryEntriesRouter.post("/",
             const sql = 'INSERT INTO Diary_Entries (userID, date, text) VALUES (?, ?, ?);'
 
             db.query(sql, [user.id, date, text ], (err, result) => {
-                if (err) throw err
+                if (err) return res.status(500).json( err )
 
                 return res.json({ message: "Entry posted" })
             })
@@ -71,7 +71,7 @@ diaryEntriesRouter.delete("/:id", async (req, res) => {
         const sql = 'DELETE FROM Diary_Entries WHERE entryID = ? ;'
 
         db.query(sql, [entryID ], (err, result) => {
-            if (err) throw err
+            if (err) return res.status(500).json( err )
 
             return res.json({ message: "Entry deleted" })
         })

@@ -22,7 +22,7 @@ loginRouter.post("/",
         const sql = 'SELECT userID, username, password FROM Users WHERE username = ?'
 
         db.query(sql, [username], async (err, result) => {
-            if (err) throw err
+            if (err) return res.status(500).json( err )
 
             const user = result[0]
 

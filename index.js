@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json())
 
 connection.connect( (err) => {
-    if (err) throw err
+    if (err) return res.status(500).json( err )
 
     console.log("Connected to database.")
 })
@@ -36,7 +36,7 @@ app.get("/create-table-users", (req, res) => {
         PRIMARY KEY(userID)
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err
+        if (err) return res.status(500).json( err )
         console.log("Table created", result)
     })
 
@@ -54,7 +54,7 @@ app.get("/create-table-entries", (req, res) => {
         FOREIGN KEY (userID) REFERENCES Users(userID)  ON DELETE CASCADE
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err
+        if (err) return res.status(500).json( err )
         console.log("Table Diary Entries created", result)
     })
 
@@ -76,7 +76,7 @@ app.get("/create-table-profiles", (req, res) => {
         UNIQUE (userID)
         );`
     connection.query(sql, (err, result) => {
-        if (err) throw err
+        if (err) return res.status(500).json( err )
         console.log("Table Profiles created", result)
     })
 

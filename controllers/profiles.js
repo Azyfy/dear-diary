@@ -18,7 +18,7 @@ profilesRouter.get("/", async (req, res) =>  {
         const sql = 'SELECT * FROM Profiles WHERE userID = ? ;'
 
         db.query(sql, [user.id ], (err, result) => {
-            if (err) throw err
+            if (err) return res.status(500).json( err )
 
             return res.status(200).json(result)
         })
@@ -56,7 +56,7 @@ profilesRouter.post("/",
             const sql = 'INSERT INTO Profiles (userID, name, surname, country, city, birthday) VALUES (?, ?, ?, ?, ?, ?);'
 
             db.query(sql, [user.id, name, surname, country, city, birthday  ], (err, result) => {
-                if (err) throw err
+                if (err) return res.status(500).json( err )
 
                 return res.json({ message: "Profile posted" })
             })
@@ -92,7 +92,7 @@ profilesRouter.put("/:id",
             const sql = 'UPDATE Profiles SET name = ?, surname = ?, country = ?, city = ?, birthday = ? WHERE profileID = ? ;'
 
             db.query(sql, [name, surname, country, city, birthday, profileID  ], (err, result) => {
-                if (err) throw err
+                if (err) return res.status(500).json( err )
 
                 return res.json({ message: "Profile updated" })
             })
