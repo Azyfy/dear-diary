@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const diaryEntriesRouter = require("express").Router()
 const db = require("../config/config")
