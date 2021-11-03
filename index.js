@@ -23,9 +23,6 @@ connection.connect( (err) => {
     console.log("Connected to database.")
 })
 
-app.get("/", (req, res) =>  {
-    res.send("Welcome")
-})
 
 app.get("/create-table-users", (req, res) => {
 
@@ -82,6 +79,8 @@ app.get("/create-table-profiles", (req, res) => {
         res.send("Table Profiles created")
     })
 })
+
+app.use(express.static("app"))
 
 app.use("/users", usersRouter)
 app.use("/login", loginRouter)
