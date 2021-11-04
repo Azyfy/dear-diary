@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 // Declare app level module which depends on views, and core components
 angular.module('myApp', [
@@ -10,7 +10,7 @@ angular.module('myApp', [
   "diaryLogin"
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+  $locationProvider.hashPrefix('!')
 
-  $routeProvider.otherwise({redirectTo: '/'});
-}]);
+  $routeProvider.otherwise({ redirectTo: '/' })
+}])
