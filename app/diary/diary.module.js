@@ -1,5 +1,6 @@
-'use strict';
+"use strict"
 
 angular.module("diary", [
-    "diaryLogin"
+    "diaryLogin",
+    "diaryUser"
 ])

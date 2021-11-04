@@ -1,0 +1,33 @@
+<h2>User</h2>
+
+<nav>
+    <button ng-click="$ctrl.diarySection = 'profile'" >Profile</button>
+    <button ng-click="$ctrl.diarySection = 'entries'" >Entries</button>
+    <button>Logout</button>
+</nav>
+
+<div ng-if="$ctrl.diarySection === 'entries'" >
+    <h3>Diary Entries</h3>
+    <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
+    <ul>
+        <li ng-repeat="entry in $ctrl.testEntries" > {{ entry.date }} {{ entry.text }} </li>
+    </ul>
+</div>
+
+<div ng-if="$ctrl.diarySection === 'newEntry'" >
+    <h3>New Entry</h3>
+    <button ng-click="$ctrl.diarySection = 'entries'" >Cancel</button>
+    <form>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+    </form>
+</div>
+
+<div ng-if="$ctrl.diarySection === 'profile'" >
+    <h3>Profile</h3>
+    <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit</button>
+</div>
+
+<div ng-if="$ctrl.diarySection === 'editProfile'" >
+    <h3>Edit Profile</h3>
+    <button ng-click="$ctrl.diarySection = 'profile'" >Cancel</button>
+</div>

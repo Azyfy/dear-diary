@@ -1,3 +1,4 @@
 <h1>Diary</h1>
 
-<diary-login  ></diary-login>
+<diary-login ng-if="!$ctrl.testToken" ></diary-login>
+<diary-user ng-if="$ctrl.testToken" ></diary-user>
