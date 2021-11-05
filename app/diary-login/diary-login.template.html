@@ -5,15 +5,15 @@
     <h2>Login</h2>
     <input type="text" ng-model="$ctrl.username" placeholder="username">
     <input type="password" ng-model="$ctrl.password" placeholder="password">
-    <button>Confirm</button>
+    <button ng-click="$ctrl.login()" >Confirm</button>
 </form>
 
 <form ng-if="$ctrl.form === 'create'" >
     <h2>Create</h2>
     <input type="text" ng-model="$ctrl.username" placeholder="username">
     <input type="password" ng-model="$ctrl.password" placeholder="password">
-    <input type="password" ng-model="$ctrl.password" placeholder="confirm password">
-    <button>Confirm</button>
+    <input type="password" ng-model="$ctrl.confirmpassword" placeholder="confirm password">
+    <button  ng-click="$ctrl.create()" >Confirm</button>
 </form>
 
 {{$ctrl.username}}

@@ -8,7 +8,7 @@ angular.
       function DiaryController($http, $routeParams) {
         var self = this
 
-        this.testToken = true
+        this.token = localStorage.getItem("token")
 
       }
     ]

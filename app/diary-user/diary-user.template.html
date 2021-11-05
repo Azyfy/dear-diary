@@ -3,28 +3,41 @@
 <nav>
     <button ng-click="$ctrl.diarySection = 'profile'" >Profile</button>
     <button ng-click="$ctrl.diarySection = 'entries'" >Entries</button>
-    <button>Logout</button>
+    <button ng-click="$ctrl.logout()" >Logout</button>
 </nav>
 
+
+<!-- Entries and new entry -->
 <div ng-if="$ctrl.diarySection === 'entries'" >
     <h3>Diary Entries</h3>
     <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
     <ul>
-        <li ng-repeat="entry in $ctrl.testEntries" > {{ entry.date }} {{ entry.text }} </li>
+        <li ng-repeat="entry in $ctrl.entries" > {{ entry.date | date }} {{ entry.text }} </li>
     </ul>
 </div>
 
 <div ng-if="$ctrl.diarySection === 'newEntry'" >
     <h3>New Entry</h3>
     <button ng-click="$ctrl.diarySection = 'entries'" >Cancel</button>
+    <p> Date: {{ $ctrl.currentDate }} </p>
+    {{ $ctrl.dateM }}
     <form>
+        <input type="date" ng-model="$ctrl.dateM">
         <textarea name="" id="" cols="30" rows="10"></textarea>
     </form>
 </div>
 
+<!-- Profile and edit profile -->
 <div ng-if="$ctrl.diarySection === 'profile'" >
     <h3>Profile</h3>
     <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit</button>
+    <div>
+        <p> {{ $ctrl.profile.name  }} </p>
+        <p> {{ $ctrl.profile.surname }} </p>
+        <p> {{ $ctrl.profile.country }} </p>
+        <p> {{ $ctrl.profile.city }} </p>
+        <p> {{ $ctrl.profile.date | date }} </p>
+    </div>
 </div>
 
 <div ng-if="$ctrl.diarySection === 'editProfile'" >
