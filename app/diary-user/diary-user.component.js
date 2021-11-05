@@ -21,6 +21,8 @@ angular.
         self.currentDate = new Date()
         self.diarySection = "entries"
 
+        self.theme = "#FFA500"
+
         self.entries = null
         self.profile = null
 
@@ -52,7 +54,16 @@ angular.
 
               } )
           
+              self.changeTheme = (  ) => {
+                /*
+                console.log("theme", getComputedStyle(document.documentElement)
+                  .getPropertyValue("--theme") )
+                */
+                document.documentElement.style
+                  .setProperty('--theme', self.theme)
 
+
+              }
 
 
       }

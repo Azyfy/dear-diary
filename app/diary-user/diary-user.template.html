@@ -1,46 +1,70 @@
-<h2>User</h2>
 
-<nav>
-    <button ng-click="$ctrl.diarySection = 'profile'" >Profile</button>
-    <button ng-click="$ctrl.diarySection = 'entries'" >Entries</button>
-    <button ng-click="$ctrl.logout()" >Logout</button>
+
+<nav class="nav" >
+    <div>
+        <button ng-click="$ctrl.diarySection = 'profile'" >Profile</button>
+        <button ng-click="$ctrl.diarySection = 'entries'" >Entries</button>
+        <button ng-click="$ctrl.diarySection = 'options'" >Settings</button>
+        <button ng-click="$ctrl.logout()" >Logout</button>
+    </div>
 </nav>
 
+<div class="section-container" >
+    <h2>User</h2>
 
-<!-- Entries and new entry -->
-<div ng-if="$ctrl.diarySection === 'entries'" >
-    <h3>Diary Entries</h3>
-    <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
-    <ul>
-        <li ng-repeat="entry in $ctrl.entries" > {{ entry.date | date }} {{ entry.text }} </li>
-    </ul>
-</div>
-
-<div ng-if="$ctrl.diarySection === 'newEntry'" >
-    <h3>New Entry</h3>
-    <button ng-click="$ctrl.diarySection = 'entries'" >Cancel</button>
-    <p> Date: {{ $ctrl.currentDate }} </p>
-    {{ $ctrl.dateM }}
-    <form>
-        <input type="date" ng-model="$ctrl.dateM">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-    </form>
-</div>
-
-<!-- Profile and edit profile -->
-<div ng-if="$ctrl.diarySection === 'profile'" >
-    <h3>Profile</h3>
-    <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit</button>
-    <div>
-        <p> {{ $ctrl.profile.name  }} </p>
-        <p> {{ $ctrl.profile.surname }} </p>
-        <p> {{ $ctrl.profile.country }} </p>
-        <p> {{ $ctrl.profile.city }} </p>
-        <p> {{ $ctrl.profile.date | date }} </p>
+        <!-- Entries and new entry -->
+    <div ng-if="$ctrl.diarySection === 'entries'" >
+        <h3>Diary Entries</h3>
+        <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
+        <ul>
+            <li ng-repeat="entry in $ctrl.entries" > {{ entry.date | date }} {{ entry.text }} </li>
+        </ul>
     </div>
-</div>
 
-<div ng-if="$ctrl.diarySection === 'editProfile'" >
-    <h3>Edit Profile</h3>
-    <button ng-click="$ctrl.diarySection = 'profile'" >Cancel</button>
+    <div ng-if="$ctrl.diarySection === 'newEntry'" >
+        <h3>New Entry</h3>
+        <button ng-click="$ctrl.diarySection = 'entries'" >Cancel</button>
+        <p> Date: {{ $ctrl.currentDate }} </p>
+        {{ $ctrl.dateM }}
+        <form>
+            <input type="date" ng-model="$ctrl.dateM">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </form>
+    </div>
+
+    <!-- Profile and edit profile -->
+    <div ng-if="$ctrl.diarySection === 'profile'" >
+        <h3>Profile</h3>
+        <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit</button>
+        <div>
+            <p> {{ $ctrl.profile.name  }} </p>
+            <p> {{ $ctrl.profile.surname }} </p>
+            <p> {{ $ctrl.profile.country }} </p>
+            <p> {{ $ctrl.profile.city }} </p>
+            <p> {{ $ctrl.profile.date | date }} </p>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.diarySection === 'editProfile'" >
+        <h3>Edit Profile</h3>
+        <button ng-click="$ctrl.diarySection = 'profile'" >Cancel</button>
+    </div>
+
+    <!-- Options -->
+    <div ng-if="$ctrl.diarySection === 'options'" >
+        <h3>Settings</h3>
+
+        <h5>Profile</h5>
+        <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit Profile</button>
+        
+        <h5>Themes</h5>
+        <label >Orange</label>
+        <input type="radio" ng-model="$ctrl.theme" value="#FFA500" ng-change="$ctrl.changeTheme()" >
+        <label >Ocean</label>
+        <input type="radio" ng-model="$ctrl.theme" value="#88ccff"  ng-change="$ctrl.changeTheme()" >
+        <label >Nature</label>
+        <input type="radio" ng-model="$ctrl.theme" value="#80fc33"  ng-change="$ctrl.changeTheme()" >
+
+    </div>
+
 </div>

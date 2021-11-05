@@ -1,25 +1,131 @@
+
+:root {
+  --theme: #FFA500;
+}
+
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+h1 {
+  background-color: var(--theme);
+  margin: 0;
+  padding: 15px 0;
+  color: white;
+  text-align: center;
 }
 
-.menu:before {
-  content: "[";
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.menu:after {
-  content: "]";
+.form-container > div {
+  display: flex;
+  gap: 10px;
 }
 
-.menu > li {
-  display: inline;
+.form-container > form {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--theme);
+  border-radius: 10px;
+  text-align: center;
+  padding: 25px;
+  gap: 15px;
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+/* Button */
+
+button {
+  border: none;
+  background-color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 1px solid var(--theme);
 }
+
+button:hover {
+  background-color: var(--theme);
+  color: white;
+}
+
+.full-btn {
+  background-color: var(--theme);
+  color: white;
+}
+
+.full-btn:hover {
+  background-color: white;
+  color: var(--theme);
+}
+
+/*  input */
+
+input {
+  border: 1px solid var(--theme);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* nav */
+
+.nav {
+  position: absolute;
+  left: 0;
+  background-color: var(--theme);
+  border-right: 15px solid black;
+  width: 150px;
+  height: 100%;
+}
+
+.nav > div {
+  position: fixed;
+  padding: 25px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.nav > div > button{
+  border: 1px solid black;
+}
+
+.section-container {
+  margin: 20px 20px 20px 300px;
+  padding: 50px 25px;
+  border-bottom: 10px double var(--theme) ;
+  border-right: 10px double var(--theme) ;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .nav {
+    position: relative;
+    left: auto;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 15px solid black;
+  }
+
+  .nav > div {
+    position: relative;
+    padding: 25px;
+    left: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+  
+  }
+
+  .section-container {
+    margin-left: 20px;
+  }
+
+}
+
