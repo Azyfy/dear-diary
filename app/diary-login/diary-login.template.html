@@ -18,6 +18,12 @@
         <input type="password" ng-model="$ctrl.confirmpassword" placeholder="confirm password">
         <button  ng-click="$ctrl.create()" >Confirm</button>
     </form>
+
+    <div ng-if="$ctrl.form !== 'create' && $ctrl.form !== 'login'" >
+        <p> Login or create an account and keep your own dear diary. </p>
+        <p> Write a record of events, transactions, or observations daily or at a frequent interval. </p>
+    </div>
+
 </div>
 
 
