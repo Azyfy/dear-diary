@@ -73,8 +73,8 @@ profilesRouter.put("/:id",
 
     async (req, res) =>  {
         const { name, surname, country, city, birthday } = req.body
+        const userID = req.params.id
 
-        const profileID = req.params.id
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -89,9 +89,9 @@ profilesRouter.put("/:id",
             }
             console.log("TOKEN", decodedToken)
 
-            const sql = 'UPDATE Profiles SET name = ?, surname = ?, country = ?, city = ?, birthday = ? WHERE profileID = ? ;'
+            const sql = 'UPDATE Profiles SET name = ?, surname = ?, country = ?, city = ?, birthday = ? WHERE userID = ? ;'
 
-            db.query(sql, [name, surname, country, city, birthday, profileID  ], (err, result) => {
+            db.query(sql, [name, surname, country, city, birthday, userID  ], (err, result) => {
                 if (err) return res.status(500).json( err )
 
                 return res.json({ message: "Profile updated" })
