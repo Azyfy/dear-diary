@@ -1,5 +1,4 @@
 
-
 <nav class="nav" >
     <div>
         <button ng-click="$ctrl.diarySection = 'profile'" >Profile</button>
@@ -10,15 +9,22 @@
 </nav>
 
 <div class="section-container" >
-    <h2>User</h2>
+    <h2> {{ $ctrl.user }} </h2>
 
         <!-- Entries and new entry -->
     <div ng-if="$ctrl.diarySection === 'entries'" >
         <h3>Diary Entries</h3>
         <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
-        <ul>
-            <li ng-repeat="entry in $ctrl.entries" > {{ entry.date | date }} {{ entry.text }} </li>
-        </ul>
+
+        <div class="entry-container" >
+            <div ng-repeat="entry in $ctrl.entries | orderBy: none : true" >
+                <p> {{ entry.date | date }} </p>
+                <div>
+                    <p> Dear Diary, </p>
+                    <p> {{ entry.text }} </p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div ng-if="$ctrl.diarySection === 'newEntry'" >

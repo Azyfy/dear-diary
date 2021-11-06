@@ -7,10 +7,12 @@
 
 h1 {
   background-color: var(--theme);
+  border-bottom: 10px solid black;
   margin: 0;
   padding: 15px 0;
   color: white;
   text-align: center;
+  position: relative;
 }
 
 .form-container {
@@ -42,6 +44,27 @@ h1 {
   text-align: center;
   padding: 25px;
   gap: 15px;
+}
+
+.entry-container  {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.entry-container > div  {
+  border: 1px solid var(--theme);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.entry-container > div:hover  {
+  background-color: #ddd;
+}
+
+.entry-container > div > div {
+  margin-left: 25px;
 }
 
 /* Button */
@@ -80,8 +103,9 @@ input {
 /* nav */
 
 .nav {
-  position: absolute;
+  position: fixed;
   left: 0;
+  top: 0;
   background-color: var(--theme);
   border-right: 15px solid black;
   width: 150px;
@@ -91,6 +115,7 @@ input {
 .nav > div {
   position: fixed;
   padding: 25px;
+  top: 100px;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -111,6 +136,11 @@ input {
 
 
 @media only screen and (max-width: 600px) {
+
+  h1 {
+    border-bottom: none;
+  }
+
   .nav {
     position: relative;
     left: auto;
@@ -123,6 +153,7 @@ input {
   .nav > div {
     position: relative;
     padding: 25px;
+    top: auto;
     left: auto;
     display: flex;
     justify-content: center;

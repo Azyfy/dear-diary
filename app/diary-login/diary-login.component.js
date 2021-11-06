@@ -28,15 +28,8 @@ angular.
               localStorage.setItem("user", res.data.user)
               $window.location.reload()
             }, (err) => {
-              console.log(err.data)
-              const error = err.data
-              
-              if(error.message) {
-                console.log("MES", error.message)
-              }
-              else {
-                console.log("ERRs", error.errors)
-              }
+              console.log( "ERROR", err.data)
+
             } )
           }
 

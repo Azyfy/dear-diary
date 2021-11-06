@@ -19,6 +19,8 @@ angular.
           }
       } 
 
+        self.user = localStorage.getItem("user")
+
         self.currentDate = `${new Date().getFullYear()}-${new Date().getMonth() +1}-${new Date().getDate()}`
         self.diarySection = "entries"
 
@@ -119,6 +121,7 @@ angular.
             ).then( (res) => {
 
                 console.log(" NEW ENTRY ", res)
+                self.diarySection = "entries"
 
 
             }, (err) => {
