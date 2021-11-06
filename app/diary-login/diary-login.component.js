@@ -25,6 +25,7 @@ angular.
               console.log("USER", res.data.user)
 
               localStorage.setItem("token", res.data.token)
+              localStorage.setItem("user", res.data.user)
               $window.location.reload()
             }, (err) => {
               console.log(err.data)
