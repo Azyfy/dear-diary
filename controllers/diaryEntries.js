@@ -28,7 +28,7 @@ diaryEntriesRouter.get("/", async (req, res) =>  {
 
 diaryEntriesRouter.post("/",
 
-    body("date", "Date needs to be a valid date of YYYY-MM-DD format").trim().isDate({ format: "YYYY-MM-DD" }),
+    body("date" ).trim().escape(),
     body("text", "More text required").trim().isLength({ min: 1 }).escape(),
 
     async (req, res) =>  {

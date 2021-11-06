@@ -48,9 +48,9 @@ usersRouter.post("/",
             })
 })
 
-usersRouter.delete("/:id", async (req, res) => {
+usersRouter.delete("/:user", async (req, res) => {
 
-    const userID = req.params.id
+    const user = req.params.user
 
     const token = getTokenFrom(req)
 
@@ -59,9 +59,9 @@ usersRouter.delete("/:id", async (req, res) => {
             return res.status(401).json({ message: err })
         }
 
-        const sql = 'DELETE FROM Users WHERE userID = ? ;'
+        const sql = 'DELETE FROM Users WHERE username = ? ;'
 
-        db.query(sql, [ userID ], (err, result) => {
+        db.query(sql, [ user ], (err, result) => {
             if (err) return res.status(500).json( err )
 
             return res.json({ message: "User deleted" })
