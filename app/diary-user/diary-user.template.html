@@ -105,10 +105,12 @@
         <h5>Themes</h5>
         <label >Orange</label>
         <input type="radio" ng-model="$ctrl.theme" value="#FFA500" ng-change="$ctrl.changeTheme()" >
-        <label >Ocean</label>
+        <label > | Ocean</label>
         <input type="radio" ng-model="$ctrl.theme" value="#88ccff"  ng-change="$ctrl.changeTheme()" >
-        <label >Nature</label>
+        <label > | Nature</label>
         <input type="radio" ng-model="$ctrl.theme" value="#80fc33"  ng-change="$ctrl.changeTheme()" >
+        <label > | Custom</label>
+        <input type="color" ng-model="$ctrl.theme"  ng-change="$ctrl.changeTheme()" >
 
         <h5>Delete Account</h5>
         <button class="delete" ng-click="$ctrl.deleteAccount()" >Delete</button>
