@@ -31,6 +31,11 @@ angular.
 
         self.entryText = ""
 
+        self.opneEntry = (entry) => {
+          self.singleEntry = entry
+          self.diarySection = "singleEntry"
+        }
+
         $http.get("http://localhost:3000/diary-entries",
               {
                   headers: {
@@ -45,7 +50,7 @@ angular.
 
               } )
         
-              $http.get("http://localhost:3000/profiles",
+        $http.get("http://localhost:3000/profiles",
               {
                   headers: {
                     Authorization: `Bearer ` +  localStorage.getItem("token")
@@ -69,11 +74,10 @@ angular.
                   .setProperty('--theme', self.theme)
 
 
-              }
+        }
 
         self.updateProfile = () => {
           console.log("UPDATE")
-          console.log(self.profile.userID)
           console.log(localStorage.getItem("token"))
           $http(
               {
@@ -102,6 +106,37 @@ angular.
               } )
         }
 
+
+        self.createProfile = () => {
+          console.log("CREATE")
+          $http(
+              {
+                  method: "POST",
+                  url: "http://localhost:3000/profiles/",
+                  data: {
+                    ... self.profileUP
+                  },
+              
+                  headers: {
+                    Authorization: `Bearer ` +  localStorage.getItem("token")
+                  }
+              }
+              ).then( (res) => {
+
+                if(res.data.message === "Profile posted") {
+                  console.log(" PROFILE UP", res)
+
+                  self.profile = { ... self.profileUP }
+                  self.diarySection = "profile"
+
+                }
+              }, (err) => {
+                console.log(err.data)
+
+              } )
+        }
+
+
         self.saveEntry = () => {
           console.log("SAVE ENTRY", self.entryText)
 
@@ -121,8 +156,40 @@ angular.
             ).then( (res) => {
 
                 console.log(" NEW ENTRY ", res)
+                self.entries.push({
+                  date: self.currentDate,
+                  text: self.entryText
+                })
                 self.diarySection = "entries"
 
+            }, (err) => {
+              console.log("ERROR",err.data)
+
+            } )
+        }
+
+        self.deleteEntry = (entryID) => {
+          console.log("delete ENTRY", entryID)
+
+          const confirmDelete = confirm("Confirm delete?")
+
+          if (!confirmDelete) {
+            return
+          }
+
+          $http(
+            {
+                method: "DELETE",
+                url: "http://localhost:3000/diary-entries/" + entryID ,
+                headers: {
+                  Authorization: `Bearer ` +  localStorage.getItem("token")
+                }
+            }
+            ).then( (res) => {
+
+                console.log(" DELETED ENRTY ", res)
+                self.entries = self.entries.filter( entry => entry.entryID !== entryID )
+                self.diarySection = "entries"
 
             }, (err) => {
               console.log("ERROR",err.data)
@@ -134,6 +201,13 @@ angular.
 
         self.deleteAccount = () => {
           console.log("DEL", localStorage.getItem("user"))
+
+          const confirmDelete = confirm("Confirm delete?")
+
+          if (!confirmDelete) {
+            return
+          }
+
 
           $http(
             {

@@ -11,17 +11,17 @@
 <div class="section-container" >
     <h2> {{ $ctrl.user }} </h2>
 
-        <!-- Entries and new entry -->
+    <!-- Entries, new entry and single entry -->
     <div ng-if="$ctrl.diarySection === 'entries'" >
         <h3>Diary Entries</h3>
         <button ng-click="$ctrl.diarySection = 'newEntry'" >New</button>
 
         <div class="entry-container" >
-            <div ng-repeat="entry in $ctrl.entries | orderBy: none : true" >
+            <div ng-repeat="entry in $ctrl.entries | orderBy: none : true" ng-click="$ctrl.opneEntry(entry)" >
                 <p> {{ entry.date | date }} </p>
                 <div>
                     <p> Dear Diary, </p>
-                    <p> {{ entry.text }} </p>
+                    <p> {{ entry.text | limitTo : 100 }} </p>
                 </div>
             </div>
         </div>
@@ -37,10 +37,19 @@
         </form>
     </div>
 
+    <div ng-if="$ctrl.diarySection === 'singleEntry'" >
+        <h3> {{ $ctrl.singleEntry.date | date }} </h3>
+        <button ng-click="$ctrl.diarySection = 'entries'" >Back</button>
+        <button ng-click="$ctrl.deleteEntry($ctrl.singleEntry.entryID)" >Delete</button>
+        <p>Dear Diary,</p>
+        <p> {{ $ctrl.singleEntry.text }} </p>
+    </div>
+
     <!-- Profile and edit profile -->
     <div ng-if="$ctrl.diarySection === 'profile'" >
         <h3>Profile</h3>
-        <button ng-click="$ctrl.diarySection = 'editProfile'" >Edit</button>
+        <button ng-click="$ctrl.diarySection = 'editProfile'" ng-if="$ctrl.profile" >Edit</button>
+        <button ng-click="$ctrl.diarySection = 'editProfile'" ng-if="!$ctrl.profile" >Create</button>
         <div>
             <p> {{ $ctrl.profile.name  }} </p>
             <p> {{ $ctrl.profile.surname }} </p>
@@ -70,12 +79,13 @@
             <label> Birthday </label>
             <input type="text" ng-model="$ctrl.profileUP.birthday" placeholder="yyyy-mm-dd"  >
 
-            <button ng-click="$ctrl.updateProfile()" >Save</button>
+            <button ng-click="$ctrl.updateProfile()" ng-if="$ctrl.profile" >Save</button>
+            <button ng-click="$ctrl.createProfile()" ng-if="!$ctrl.profile" >Create</button>
         </form>
 
     </div>
 
-    <!-- Options -->
+    <!-- Settings -->
     <div ng-if="$ctrl.diarySection === 'options'" >
         <h3>Settings</h3>
 
