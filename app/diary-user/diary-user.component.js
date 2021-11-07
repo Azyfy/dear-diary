@@ -3,7 +3,7 @@
 angular.
   module("diaryUser").
   component("diaryUser", {
-    templateUrl: "diary-user/diary-user.template.html", 
+    templateUrl: "diary-user/diary-user.template.html",
     bindings: {
       token: "="
     },
@@ -17,7 +17,7 @@ angular.
             localStorage.removeItem("user")
             self.token = null
           }
-      } 
+      }
 
         self.user = localStorage.getItem("user")
 
@@ -61,7 +61,7 @@ angular.
           }, (err) => {
             console.log(err.data)
           })
-        
+
         $http.get("http://localhost:3000/profiles",
           {
               headers: {
