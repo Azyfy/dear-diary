@@ -87,7 +87,6 @@ profilesRouter.put("/:id",
             if(err) {
                 return res.status(401).json({ message: err })
             }
-            console.log("TOKEN", decodedToken)
 
             const sql = 'UPDATE Profiles SET name = ?, surname = ?, country = ?, city = ?, birthday = ? WHERE userID = ? ;'
 
