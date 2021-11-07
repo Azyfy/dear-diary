@@ -31,8 +31,9 @@
         <h3>New Entry</h3>
         <button ng-click="$ctrl.diarySection = 'entries'" >Cancel</button>
         <p> Date: {{ $ctrl.currentDate }} </p>
-        <form>
-            <textarea id="" cols="30" rows="10" ng-model="$ctrl.entryText" ></textarea>
+        <p>Dear Diary,</p>
+        <form class="diary-form" >
+            <textarea cols="30" rows="10" ng-model="$ctrl.entryText" ></textarea>
             <button ng-click="$ctrl.saveEntry()" > Save </button>
         </form>
     </div>
@@ -40,7 +41,7 @@
     <div ng-if="$ctrl.diarySection === 'singleEntry'" >
         <h3> {{ $ctrl.singleEntry.date | date }} </h3>
         <button ng-click="$ctrl.diarySection = 'entries'" >Back</button>
-        <button ng-click="$ctrl.deleteEntry($ctrl.singleEntry.entryID)" >Delete</button>
+        <button class="delete" ng-click="$ctrl.deleteEntry($ctrl.singleEntry.entryID)" >Delete</button>
         <p>Dear Diary,</p>
         <p> {{ $ctrl.singleEntry.text }} </p>
     </div>
@@ -50,12 +51,11 @@
         <h3>Profile</h3>
         <button ng-click="$ctrl.diarySection = 'editProfile'" ng-if="$ctrl.profile" >Edit</button>
         <button ng-click="$ctrl.diarySection = 'editProfile'" ng-if="!$ctrl.profile" >Create</button>
-        <div>
-            <p> {{ $ctrl.profile.name  }} </p>
-            <p> {{ $ctrl.profile.surname }} </p>
+        <div ng-if="$ctrl.profile" class="profile-info" >
+            <p> {{ $ctrl.profile.name  }} {{ $ctrl.profile.surname }} </p>
+            <p> {{ $ctrl.profile.birthday | date }} </p>
             <p> {{ $ctrl.profile.country }} </p>
             <p> {{ $ctrl.profile.city }} </p>
-            <p> {{ $ctrl.profile.birthday | date }} </p>
         </div>
     </div>
 
@@ -63,21 +63,31 @@
         <h3>Edit Profile</h3>
         <button ng-click="$ctrl.diarySection = 'profile'" >Cancel</button>
 
-        <form>
-            <label> Name </label>
-            <input type="text" ng-model="$ctrl.profileUP.name" >
+        <form class="diary-form" >
+            <div>
+                <input type="text" ng-model="$ctrl.profileUP.name" >
+                <label> Name </label>
+            </div>
 
-            <label> Surname </label>
-            <input type="text" ng-model="$ctrl.profileUP.surname" >
+            <div>
+                <input type="text" ng-model="$ctrl.profileUP.surname" >
+                <label> Surname </label>
+            </div>
 
-            <label> Country </label>
-            <input type="text" ng-model="$ctrl.profileUP.country" >
+            <div>
+                <input type="text" ng-model="$ctrl.profileUP.country" >
+                <label> Country </label>
+            </div>
 
-            <label> City </label>
-            <input type="text" ng-model="$ctrl.profileUP.city" >
+            <div>
+                <input type="text" ng-model="$ctrl.profileUP.city" >
+                <label> City </label>
+            </div>
 
-            <label> Birthday </label>
-            <input type="text" ng-model="$ctrl.profileUP.birthday" placeholder="yyyy-mm-dd"  >
+            <div>
+                <input type="text" ng-model="$ctrl.profileUP.birthday" placeholder="yyyy-mm-dd"  >
+                <label> Birthday </label>
+            </div>
 
             <button ng-click="$ctrl.updateProfile()" ng-if="$ctrl.profile" >Save</button>
             <button ng-click="$ctrl.createProfile()" ng-if="!$ctrl.profile" >Create</button>

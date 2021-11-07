@@ -61,10 +61,26 @@ h1 {
 
 .entry-container > div:hover  {
   background-color: #ddd;
+  cursor: pointer;
 }
 
 .entry-container > div > div {
   margin-left: 25px;
+}
+
+.diary-form {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.profile-info {
+  margin: 25px;
+}
+
+.profile-info > p:first-child {
+  font-weight: bold;
 }
 
 /* Button */
@@ -90,6 +106,14 @@ button:hover {
 .full-btn:hover {
   background-color: white;
   color: var(--theme);
+}
+
+.delete {
+  border: 1px solid #D2042D;
+}
+
+.delete:hover {
+  background-color:  #D2042D;
 }
 
 /*  input */
