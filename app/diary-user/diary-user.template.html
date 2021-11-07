@@ -11,6 +11,10 @@
 <div class="section-container" >
     <h2> {{ $ctrl.user }} </h2>
 
+    <div class="error" >
+        <p ng-repeat="error in $ctrl.errors" > {{ error.msg }} {{ error.message }}  </p>
+    </div>
+
     <!-- Entries, new entry and single entry -->
     <div ng-if="$ctrl.diarySection === 'entries'" >
         <h3>Diary Entries</h3>
