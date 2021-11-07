@@ -12,7 +12,7 @@ angular.
         self.password = ""
         self.confirmpassword = ""
 
-
+        self.errors = null
 
         self.login = () => {
 
@@ -28,6 +28,7 @@ angular.
               $window.location.reload()
             }, (err) => {
               console.log( "ERROR", err.data)
+              self.errors = err.data
             })
           }
 
@@ -50,6 +51,7 @@ angular.
 
             }, (err) => {
               console.log( "ERROR", err.data)
+              self.errors = err.data
             })
           }
 

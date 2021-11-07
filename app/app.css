@@ -83,6 +83,10 @@ h1 {
   font-weight: bold;
 }
 
+.error-message {
+  color: #D2042D;
+}
+
 /* Button */
 
 button {

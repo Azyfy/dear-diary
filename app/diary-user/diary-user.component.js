@@ -31,7 +31,7 @@ angular.
 
         self.entryText = ""
 
-        self.errors = [ ]
+        self.errors = null
 
         self.opneEntry = (entry) => {
           self.singleEntry = entry
@@ -60,6 +60,7 @@ angular.
             self.entries = res.data
           }, (err) => {
             console.log(err.data)
+            self.errors = err.data
           })
 
         $http.get("http://localhost:3000/profiles",
@@ -73,6 +74,7 @@ angular.
             self.profileUP = { ... self.profile }
           }, (err) => {
             console.log("ERROR", err.data)
+            self.errors = err.data
           })
 
         self.updateProfile = () => {
@@ -81,7 +83,8 @@ angular.
                 method: "PUT",
                 url: "http://localhost:3000/profiles/" + self.profile.userID ,
                 data: {
-                  ... self.profileUP
+                  ... self.profileUP,
+                  birthday: self.profileUP.birthday.toISOString().slice(0, 10)
                 },
                 headers: {
                   Authorization: `Bearer ` +  localStorage.getItem("token")
@@ -97,6 +100,7 @@ angular.
                 }
               }, (err) => {
                 console.log("ERROR", err.data)
+                self.errors = err.data
               })
         }
 
@@ -107,7 +111,8 @@ angular.
                 method: "POST",
                 url: "http://localhost:3000/profiles/",
                 data: {
-                  ... self.profileUP
+                  ... self.profileUP,
+                  birthday: self.profileUP.birthday.toISOString().slice(0, 10)
                 },
                 headers: {
                   Authorization: `Bearer ` +  localStorage.getItem("token")
@@ -123,6 +128,7 @@ angular.
                 }
               }, (err) => {
                 console.log("ERROR", err.data)
+                self.errors = err.data
               })
         }
 
@@ -152,6 +158,7 @@ angular.
 
             }, (err) => {
               console.log("ERROR",err.data)
+              self.errors = err.data
             })
         }
 
@@ -178,6 +185,7 @@ angular.
 
             }, (err) => {
               console.log("ERROR",err.data)
+              self.errors = err.data
             })
         }
 
@@ -204,6 +212,7 @@ angular.
                 self.logout()
             }, (err) => {
               console.log("ERROR",err.data)
+              self.errors = err.data
             })
 
 

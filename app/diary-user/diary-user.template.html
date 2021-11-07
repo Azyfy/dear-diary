@@ -11,6 +11,8 @@
 <div class="section-container" >
     <h2> {{ $ctrl.user }} </h2>
 
+    <diary-error ng-if="$ctrl.errors !== null" error="$ctrl.errors"></diary-error>
+
     <div class="error" >
         <p ng-repeat="error in $ctrl.errors" > {{ error.msg }} {{ error.message }}  </p>
     </div>
@@ -67,34 +69,51 @@
         <h3>Edit Profile</h3>
         <button ng-click="$ctrl.diarySection = 'profile'" >Cancel</button>
 
-        <form class="diary-form" >
+        <form class="diary-form" name="profileForm" >
             <div>
-                <input type="text" ng-model="$ctrl.profileUP.name" >
+                <input type="text" ng-model="$ctrl.profileUP.name" name="name" ng-minlength="3" >
                 <label> Name </label>
+                <span class="error-message" ng-show="profileForm.name.$dirty
+                        && profileForm.name.$error.minlength">
+                        Must be a Minimum of 3 Characters
+                </span>
+        </span>
             </div>
 
             <div>
-                <input type="text" ng-model="$ctrl.profileUP.surname" >
+                <input type="text" ng-model="$ctrl.profileUP.surname" name="surname" ng-minlength="3">
                 <label> Surname </label>
+                <span class="error-message" ng-show="profileForm.surname.$dirty
+                        && profileForm.surname.$error.minlength">
+                        Must be a Minimum of 3 Characters
+                </span>
             </div>
 
             <div>
-                <input type="text" ng-model="$ctrl.profileUP.country" >
+                <input type="text" ng-model="$ctrl.profileUP.country" name="country" ng-minlength="3" >
                 <label> Country </label>
+                <span class="error-message" ng-show="profileForm.country.$dirty
+                        && profileForm.country.$error.minlength">
+                        Must be a Minimum of 3 Characters
+                </span>
             </div>
 
             <div>
-                <input type="text" ng-model="$ctrl.profileUP.city" >
+                <input type="text" ng-model="$ctrl.profileUP.city" name="city" ng-minlength="3" >
                 <label> City </label>
+                <span class="error-message" ng-show="profileForm.city.$dirty
+                        && profileForm.city.$error.minlength">
+                        Must be a Minimum of 3 Characters
+                </span>
             </div>
 
             <div>
-                <input type="text" ng-model="$ctrl.profileUP.birthday" placeholder="yyyy-mm-dd"  >
+                <input type="date" ng-model="$ctrl.profileUP.birthday" placeholder="yyyy-mm-dd"  >
                 <label> Birthday </label>
             </div>
 
-            <button ng-click="$ctrl.updateProfile()" ng-if="$ctrl.profile" >Save</button>
-            <button ng-click="$ctrl.createProfile()" ng-if="!$ctrl.profile" >Create</button>
+            <button ng-click="$ctrl.updateProfile()" ng-if="$ctrl.profile"  ng-disabled="profileForm.$invalid" >Save</button>
+            <button ng-click="$ctrl.createProfile()" ng-if="!$ctrl.profile"  ng-disabled="profileForm.$invalid" >Create</button>
         </form>
 
     </div>

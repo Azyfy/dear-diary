@@ -1,0 +1,8 @@
+
+<div class="error-message" >
+    <div>
+        <h6>Error</h6>
+        <button ng-click="$ctrl.clearError()" > Clear errors </button>
+        <p ng-repeat="error in $ctrl.errors" > {{ error.msg }} </p>
+    </div>
+</div>

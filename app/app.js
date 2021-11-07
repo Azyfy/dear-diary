@@ -5,7 +5,8 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.version',
   "diary",
-  "diaryLogin"
+  "diaryLogin",
+  "diaryError"
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!')

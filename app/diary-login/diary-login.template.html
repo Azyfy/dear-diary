@@ -4,6 +4,8 @@
         <button ng-click="$ctrl.form = 'create'"  >Create</button>
     </div>
     
+    <diary-error ng-if="$ctrl.errors !== null" error="$ctrl.errors"></diary-error>
+    
     <form ng-if="$ctrl.form === 'login'" >
         <h2>Login</h2>
         <input type="text" ng-model="$ctrl.username" placeholder="username">
@@ -25,8 +27,4 @@
     </div>
 
 </div>
-
-
-{{$ctrl.username}}
-{{$ctrl.password}}
 
