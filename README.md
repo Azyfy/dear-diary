@@ -23,3 +23,5 @@ Write a record of events, transactions, or observations daily or at a frequent i
 ![dairy2](https://user-images.githubusercontent.com/25674257/140780981-556a6217-dbdc-421c-91f6-546a62fb5a4d.png)
 
 ![diary3](https://user-images.githubusercontent.com/25674257/140781780-dead5d70-54d0-4ace-832f-e722d1afdeff.png)
+
+![diary4](https://user-images.githubusercontent.com/25674257/140783277-4ef4cb05-ff5f-4757-8900-96e8a79072dc.png)
